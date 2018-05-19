@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Controllers\Movie;
+
 class CatalogController extends Controller
 {
     private $arrayPeliculas = array(
@@ -168,6 +170,25 @@ class CatalogController extends Controller
             'synopsis' => 'Un joven hastiado de su gris y monótona vida lucha contra el insomnio. En un viaje en avión conoce a un carismático vendedor de jabón que sostiene una teoría muy particular: el perfeccionismo es cosa de gentes débiles; sólo la autodestrucción hace que la vida merezca la pena. Ambos deciden entonces fundar un club secreto de lucha, donde poder descargar sus frustaciones y su ira, que tendrá un éxito arrollador.'
         )
     );
+    public function postCreate(Request $request){
+/*        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'], // Campo añadido
+            'password' => bcrypt($data['password']),
+            ]);*/
+            $movie = new Movie;
+            $movie->title = $request->input('title');
+            $movie->year = $request->input('year');
+            $movie->director = $request->input('director');
+            $movie->poster = $request->input('poster');
+            $movie->synopsis = $request->input('synopsis');
+            $movie->save();
+            return redirect('/catalog');
+    }
+    public function putEdit(Request $request, $id){
+        # code...
+    }
     public function getIndex(){
 
         return view('catalog.index', array( 'arrayPeliculas' => $this->arrayPeliculas));
