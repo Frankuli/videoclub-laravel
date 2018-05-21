@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Movie;
 
-use App\Http\Controllers\Movie;
+use Illuminate\Http\Request;
 
 class CatalogController extends Controller
 {
@@ -187,15 +187,26 @@ class CatalogController extends Controller
             return redirect('/catalog');
     }
     public function putEdit(Request $request, $id){
-        # code...
+        $movie=Movie::findOrFail($id);
+        dd($movie);
+        $movie->title = $request->input('title');
+        $movie->year = $request->input('year');
+        $movie->director = $request->input('director');
+        $movie->poster = $request->input('poster');
+        $movie->synopsis = $request->input('synopsis');
+        $movie->save();
+        return redirect('/catalog');
     }
-    public function getIndex(){
 
-        return view('catalog.index', array( 'arrayPeliculas' => $this->arrayPeliculas));
+    public function getIndex(){
+        $peliculas=Movie::all();
+        //dd($arrayPeliculas);
+        return view('catalog.index', array( 'peliculas' => $peliculas));
     }
 
     public function getShow($id){
-        return view('catalog.show',array( 'pelicula' => $this->arrayPeliculas[$id]));
+        $pelicula=Movie::findOrFail($id);
+        return view('catalog.show',array( 'pelicula' => $pelicula));
 
     }
 
@@ -204,6 +215,7 @@ class CatalogController extends Controller
     }
 
     public function getEdit($id){
-        return view('catalog.edit', array('id'=>$id));
+        $pelicula=Movie::findOrFail($id);
+        return view('catalog.edit', array('pelicula'=>$pelicula));
     }
 }

@@ -29,8 +29,3 @@ Route::group(['middleware' => 'auth'], function() {
     Route::put('/catalog/edit/{id}', 'CatalogController@putEdit');
     
 });
-
-
-
-
-
