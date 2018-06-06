@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Database\Seeder;
+
 use App\User;
+
+use App\Movie;
 
 class DatabaseSeeder extends Seeder{
     /**

@@ -7,8 +7,7 @@
                     Modeficar película
                 </div>
                 <div class="card-body" style="padding:30px">
-                    <form action="/catalog/edit/{{$pelicula->id}}" method="PUT">
-                        <input type="hidden" name="_method" value="PUT">
+                    <form action="/catalog/edit/{{ $pelicula->id }}" method="POST">
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="title">Título</label>
